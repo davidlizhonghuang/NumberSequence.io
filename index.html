@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html ng-app="numberApp">
+<head>
+    <title>Number Sequence Test</title>
+	<meta charset="utf-8" />
+    <script src="script/angular/angular.min.js"></script>
+    <script src="script/numberlib.js"></script>
+    <link href="script/angular/angular-csp.css" rel="stylesheet" />
+    <style>
+        div{
+
+            background-color:#efe8e8
+        }
+    </style>
+</head>
+<body >
+    <h2>Number Sequence Calculation</h2>
+
+    <h3>1, Arithmetic Sequence Calculator</h3>
+ 
+    <table  style="width: 50%" class="panel" id="standard" ng-controller="calculatemodule1">
+
+            <tbody>
+                <tr>
+                    <td align="right">First number</td>
+                    <td style="width: 70%"><input type="text" name="afirstnumber" size="6" id="afirstnumber" value="2" style="text-align: right;"></td>
+                </tr>
+                <tr>
+                    <td align="right">Difference (f)</td>
+                    <td><input type="text" name="afactor" size="6" id="afactor" value="5" style="text-align: right;"></td>
+                </tr>
+                <tr>
+                    <td align="right">Number to obtain</td>
+                    <td><input type="text" name="athenumber" size="6" id="athenumber" value="20" style="text-align: right;"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><button  ng-click="cal1event()">Calculate</button><button ng-click="clear1event()">Clear</button></td>
+                </tr>
+           <tr><td  align="right">Result</td><td><div id="coutputarithmetic" /></td></tr>
+            </tbody>
+        </table>
+
+    <p>Instruction</p>
+    <ul>
+        <li>
+            input number only or you will get an error message
+        </li>
+        <li>click calculate button to get result, click clear to clen the result</li>
+        <li>you can put any number </li>
+        <li>Number to obtain can not be negative</li>
+    </ul>
+
+    <h3>2, Geometric Sequence Calculator</h3>
+    
+    <table style="width: 50%" class="panel" id="standard" ng-controller="calculatemodule2">
+      
+      <tbody >
+            <tr>
+                <td align="right">First number</td>
+                <td  style="width: 70%"><input type="text" name="gfirstnumber" size="6" id="gfirstnumber" value="2" style="text-align: right;"></td>
+            </tr>
+            <tr>
+                <td align="right">Ratio (r)</td>
+                <td><input type="text" name="gfactor" size="6" id="gfactor" value="5" style="text-align: right;"></td>
+            </tr>
+            <tr>
+                <td align="right">Number to obtain</td>
+                <td><input type="text" name="gthenumber" size="6" id="gthenumber" value="12" style="text-align: right;"></td>
+            </tr>
+          <tr>
+              <td>&nbsp;</td>
+              <td><button ng-click="cal2event()">Calculate</button><button ng-click="clear2event()">Clear</button></td>
+          </tr>
+
+          <tr><td align="right">Result</td><td><div id="coutputgeometric" /></td></tr>
+
+        </tbody>
+    </table>
+
+    <p>Instruction</p>
+    <ul>
+        <li>
+            input number only or you will get an error message
+        </li>
+        <li>click calculate button to get result, click clear to clen the result</li>
+        <li>you can put any number </li>
+        <li>Number to obtain can not be negative</li>
+    </ul>
+
+    <h3>3, Fibonacci Sequence Calculator</h3>
+ 
+    <table style="width: 50%" class="panel" id="standard" ng-controller="calculatemodule3">
+        <tbody>
+            <tr>
+                <td align="right" >Number to obtain</td>
+                <td  style="width: 70%"><input type="text" name="fthenumber" size="6" id="fthenumber" value="10" style="text-align: right;"></td>
+            </tr>
+            <tr>
+                <td >&nbsp;</td>
+                <td><button ng-click="cal3event()">Calculate</button><button ng-click="clear3event()">Clear</button></td>
+            </tr>
+
+            <tr><td align="right">Result</td><td><div id="coutputfibonacci"></div></td></tr>
+
+
+        </tbody>
+    </table>
+
+    <p>Instruction</p>
+    <ul>
+        <li>
+            input number only or you will get an error message
+        </li>
+        <li>click calculate button to get result, click clear to clen the result</li>
+        <li>you can put any posiive number </li>
+        <li>Number can not be negative or you will get an error message</li>
+    </ul>
+</body>
+</html>
+
+
+<script>
+    
+ angular.module('numberApp', []);
+
+    var NumApp=angular.module('numberApp');
+
+    NumApp.controller('calculatemodule1', ['$scope', function ($scope) {
+
+        $scope.cal1event = function () {
+
+            return calcarithmetic('coutputarithmetic');
+        };
+
+        $scope.clear1event = function () {
+            setTimeout(function () { window.location.href = "";},100);
+        }
+
+    }]);
+
+    NumApp.controller('calculatemodule2', ['$scope', function ($scope) {
+
+        $scope.cal2event = function () {
+
+            return calcgeometric('coutputgeometric');
+        };
+
+        $scope.clear2event = function () {
+            setTimeout(function () { window.location.href = ""; }, 100);
+        }
+
+    }]);
+
+
+  NumApp.controller('calculatemodule3', ['$scope', function ($scope) {
+
+        $scope.cal3event = function () {
+
+            return calcfibonacci('coutputfibonacci');
+        };
+
+        $scope.clear3event = function () {
+
+            setTimeout(function () { window.location.href = ""; }, 100);
+        }
+
+    }]);
+
+</script>
