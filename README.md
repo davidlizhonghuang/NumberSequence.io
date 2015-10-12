@@ -1,16 +1,11 @@
 # NumberSequence.io
  
 
-This test is used to test how to use Angular JS to build up various number-sequence calculators
+This is a simple HTML page wrote by Angular JS to demonstrate how to simple develop a SPA page with Angular JS
 
-this testing is very simple. I simple used the math formulas from below links to buld the test.
+http://www.calculator.net/number-sequence-calculator.html web site is used as a reference due to the time limitation 
 
-the JS library from this link has been downloaded and used in this test.
+One Angular module and four controllers are developed.  
 
-http://www.calculator.net/number-sequence-calculator.html
+ 
 
-all functions are javascript based. I simple use VS2015 to build a simple web site that can only have a single HtML page. becasue we use Angular js, we do not need to use code behind for calculation and simply use JS library to run event in a single HTML page. this is the modern SPA technology.
-
-
-
-https://github.com/davidlizhonghuang/NumberSequence.io.git
