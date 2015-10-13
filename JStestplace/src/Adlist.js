@@ -12,4 +12,3 @@ Adlist.prototype.returnalllist = function () {
 
 }
  
-calcarithmetic('coutputarithmetic');

@@ -6,6 +6,8 @@
     <script src="script/angular/angular.min.js"></script>
     <script src="script/numberlib.js"></script>
     <link href="script/angular/angular-csp.css" rel="stylesheet" />
+    <script src="script/indexng.js"></script>
+
     <style>
         div{
 
@@ -119,52 +121,3 @@
 </body>
 </html>
 
-
-<script>
-    
- angular.module('numberApp', []);
-
-    var NumApp=angular.module('numberApp');
-
-    NumApp.controller('calculatemodule1', ['$scope', function ($scope) {
-
-        $scope.cal1event = function () {
-
-            return calcarithmetic('coutputarithmetic');
-        };
-
-        $scope.clear1event = function () {
-            setTimeout(function () { window.location.href = "";},100);
-        }
-
-    }]);
-
-    NumApp.controller('calculatemodule2', ['$scope', function ($scope) {
-
-        $scope.cal2event = function () {
-
-            return calcgeometric('coutputgeometric');
-        };
-
-        $scope.clear2event = function () {
-            setTimeout(function () { window.location.href = ""; }, 100);
-        }
-
-    }]);
-
-
-  NumApp.controller('calculatemodule3', ['$scope', function ($scope) {
-
-        $scope.cal3event = function () {
-
-            return calcfibonacci('coutputfibonacci');
-        };
-
-        $scope.clear3event = function () {
-
-            setTimeout(function () { window.location.href = ""; }, 100);
-        }
-
-    }]);
-
-</script>
