@@ -1,0 +1,414 @@
+@{
+    ViewBag.Title = "About Us";
+    Layout = null;
+}
+
+
+<html>
+    <head>
+        <title>Angular Js Kendo UI</title>
+
+        <script src="../../Scripts/jquery.min.js"></script>
+
+        <script src="../../Scripts/angular.min.js"></script>
+
+        <script src="../../Scripts/kendo/2015.3.930/kendo.angular2.min.js"></script>
+
+        <script src="../../Scripts/kendo/2015.3.930/kendo.all.min.js"></script>
+
+        <link href="../../Content/kendo/2015.3.930/kendo.common.min.css" rel="stylesheet" />
+
+        <link href="../../Content/kendo/2015.3.930/kendo.rtl.css" rel="stylesheet" />
+
+        <link href="../../Content/kendo/2015.3.930/kendo.default.min.css" rel="stylesheet" />
+
+        <link href="../../Content/kendo/2015.3.930/kendo.dataviz.min.css" rel="stylesheet" />
+
+        <link href="../../Content/kendo/2015.3.930/kendo.dataviz.default.min.css" rel="stylesheet" />
+
+        <link href="../../Content/kendo/2015.3.930/kendo.mobile.all.min.css" rel="stylesheet" />
+
+    </head>
+
+    <body>
+
+        <div ng-app="AboutApp" ng-controller="disCtrl" >
+               
+           <div kendo-list-view k-data-source="Dsource">
+
+                   <div class="product" k-template>
+
+                      <h3>{{dataItem.LPKey}}</h3>
+                       <p>{{dataItem.LPValue}}</p>
+
+                              @* <h3>{{ dataItem.ProductName }}</h3>
+                                    <p>{{ dataItem.UnitPrice | currency:"USD$":0 }}</p>
+                                                            *@
+                   </div>
+
+               </div>
+          
+           <div>
+               <form name="frms">
+                   
+                   <input kendo-numeric-text-box="kntb2" k-min="0" k-min="100" k-ng-model="value2" /> @* k-ng-model means data here will be pass to server*@
+                   
+                   {{frms.$dirty}}
+                   
+                   {{frms.$pristine}}
+
+               </form>
+           </div>
+
+           <div>
+                
+                   <label>Birthday: <input kendo-date-picker k-ng-model="birthday" /></label>
+                
+                     <p>
+                    Your selection: {{ birthday }}
+                  </p>
+
+                </div>
+
+           <div>
+                     <h3>Select LPKey</h3>
+                     <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedIds" k-value-primitive="true">
+
+                     </select>
+
+                     <p ng-show="selectedIds.length"><br />Selected: {{selectedIds}}</p>
+
+                 </div>
+
+           <div>
+                <input kendo-date-picker k-options="pickmonth" />
+                <p ng-show="selected">A month was selected</p>
+
+            </div>
+
+           <div>
+                    <input kendo-date-picker k-on-change="onDatePk(kendoEvent)" />
+                
+                    <p ng-show="selected">A month was selected</p>
+
+             </div>
+
+           <div>
+                <ul kendo-menu k-orientation="orientation" k-rebind="orientation">
+                           <li>item1</li>
+                           <li>item2</li>
+                           <li>item3</li>
+                </ul>
+            
+                    <select kendo-drop-down-list ng-model="orientation">
+                        <option>horizontal</option>
+                        <option>vertical</option>
+                </select>
+
+            </div>
+
+           <div>
+                  <select id="customers" kendo-drop-down-list k-ng-disabled="isDisabled" k-options="customOptions"></select>
+              </div>
+
+           <div>
+
+                 <input kendo-datepicker="datePicker" k-on-change="onChange()">
+
+                   <mycustomdirective />
+
+               </div>
+
+           <div>
+                <div kendo-window="wnd">do something</div>      
+            </div>
+
+           <div>
+                   <label>Select mode: <select kendo-dropdownlist ng-model="gridOptions.selectable">
+
+                                        <option value="row">Row</option>
+                                        <option value="cell">Cell</option>
+                                        <option value="multiple, row">Multiple, row</option>
+                                        <option value="multiple, cell">Multiple, cell</option>
+
+                                       </select></label>
+               </div>
+
+           <div kendo-grid k-options="gridOptions" k-rebind="gridOptions.selectable" k-on-change="handleChange(data, dataItem, columns)">
+
+            </div>
+                 
+           <pre>
+                  data: {{ data | json }}
+                  columns: {{ columns | json }}
+                  <span ng-show="gridOptions.selectable == 'row' || gridOptions.selectable == 'cell'">DataItem: {{ dataItem | json }}</span>
+                 
+            </pre>
+
+           <div kendo-grid k-options="gridOptions1">
+
+                    </div>
+
+           <div kendo-grid k-options="gridOptions2">
+
+                    </div>
+
+
+        </div>
+
+        <script>
+
+            var aboutAngular = angular.module("AboutApp", ['kendo.directives']);
+
+            aboutAngular.directive('mycustomdirective', function ($timeout) {
+                return {
+
+                    template: '<input kendo-auto-complete k-options="options" k-ng-delay="options" style="width: 100%" />',
+                    link: function (Scope) {
+                        $timeout(function () {
+
+                            scope.options = {placeholder: "place a text here "}
+
+                        })
+                    }
+
+                }
+
+            });
+
+            aboutAngular.controller('disCtrl', ['$scope', '$http', function ($scope, $http)
+            {
+
+                    var data = new kendo.data.DataSource({
+                        data: [
+                          { text: "Foo", id: 1 },
+                          { text: "Bar", id: 2 },
+                          { text: "Baz", id: 3 }
+                        ]
+                    });
+
+                    $scope.handleChange = function (data, dataItem, columns) {
+
+                        $scope.data = data;
+                        $scope.columns = columns;
+                        $scope.dataItem = dataItem;
+
+                    }
+
+                    $scope.gripOptions = {
+
+                        dataSource: data,
+                        selectable: "row",
+                        columns: [
+                        {field: "text", title: "Text"},
+                        {field: "id", title: "Id"}
+                        ]
+
+                    }
+
+                    $scope.$on("kendoRendered", function ($scope) {
+
+                        var childScope = angular.element($scope.wnd.element).scope();     // this is a popup
+
+                    });
+
+                    $scope.onChange = function ()
+                    {
+                        alert($scope.datePicker.value());
+                    };
+
+
+                    $scope.Dsource = new kendo.data.DataSource({
+
+                        transport: {
+                            read:
+                                {
+
+                                   // url: '@Url.Action("Select", "Home")', 
+                                  //  dataType: 'json'
+
+                                  //  url: "http://demos.telerik.com/kendo-ui/service/products",
+                                  //  dataType: "jsonp"
+
+                            }
+                        },
+                        pageSize: 21
+                    });
+                   
+
+                    var watch = $scope.$watch('value2', function (newvalue, oldvalue) {
+
+                        if (oldvalue != newvalue) {
+                            $scope.frms.$dirty = true;
+                            $scope.frms.$pristine = false;
+                            watch();        // monitor the input value if it is different, return a true false trigger that can be used somewhere to do something  , call itself
+                        }
+
+                    });
+
+
+                    $scope.selectOptions =
+                        {
+                        placeholder: "Select LPkey...",
+                        dataTextField: "LPValue",
+                        dataValueField: "LPKey",
+                        dataSource: {
+                            transport: {
+                                read:
+                                    {
+                                    url: '@Url.Action("Select","Home")',
+                                    dataType: 'json'
+                                }
+                            }
+                        }
+                    }; //remember it needs list only
+
+
+                    $scope.selectedIds = [{LPKey: "", LPValue: ""}];
+
+
+                    $scope.pickmonth = {
+                        start: "year",
+                        depth: "year",
+                        format: "MMMM yyyy",
+                        change: function (e) {
+
+                            var datePicker = e.sender;
+                            console.log(datePicker.value());
+                            $scope.selected = true;
+                            $scope.$digest();   //after selected , pass back to client
+                        }
+                    };
+
+
+                    $scope.onDatePk = function (e) {  //e kendoevent
+
+                        var datePicker = e.sender;
+                        console.log(datePicker.value());
+                        $scope.selected = true;  //we do not need $digest, because on change 
+                    }
+
+                    //two ways to response the event 
+
+                    $scope.orientation = "horizontal";
+
+                    $scope.isDisabled = false;
+
+                    $scope.customOptions = {
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: '@Url.Action("Select","Home")',
+                                    dataType: 'json'
+                                },
+                                pageSize: 21
+                            }
+                        },
+
+                        dataTextField: "LPKey",
+                        dataValueField: "LPValue"
+
+
+                    };
+
+
+                $scope.gridOptions1 = {
+
+                    columns: [{ field: "ProductID" }, { field: "ProductName" }],
+
+                    pageable: true,
+
+                    dataSource: {
+
+                        pageSize: 5,
+
+                        transport: {
+
+                            read: function (e) {
+
+                                $http.jsonp('http://demos.telerik.com/kendo-ui/service/Products?callback=JSON_CALLBACK').
+
+                                    success(function (data, status, headers, config) {
+                                    e.success(data)
+                                }).
+
+                                    error(function (data, status, headers, config) {
+                                    alert('something went wrong')
+                                    console.log(status);
+                                });
+                            }
+                        }
+                    }
+                }
+
+                
+
+                $scope.gridOptions2 = {
+
+                    columns: [{ field: "LPKey" }, { field: "LPValue" }],
+
+                    pageable: true,
+
+                    dataSource: {
+
+                        pageSize: 5,
+
+                        transport: {
+
+                            read: function (e) {
+
+                                $http({ method: "GET", url: '@Url.Action("Select","Home")' }).
+
+                                    success(function (data, status, headers, config) {
+                                        e.success(data)
+                                    }).
+
+                                    error(function (data, status, headers, config) {
+                                        alert('something went wrong')
+                                        console.log(status);
+                                    });
+                            }
+                        }
+                    }
+                }
+
+
+                $http({ method: "GET", url: '@Url.Action("Select","Home")' })
+                        .success(function (result) {
+
+                            var dataSource = new kendo.data.DataSource({       //get data from $http service
+
+                            data: result.data
+
+                        });
+
+                        $scope.gridOptions =
+                            {
+
+                            dataSource: data,
+
+                            columns: result.columns
+
+                        }
+    
+
+
+                    });
+
+
+
+
+
+
+                }]);
+
+
+
+
+  
+
+            </script>
+
+    </body>
+
+</html>
